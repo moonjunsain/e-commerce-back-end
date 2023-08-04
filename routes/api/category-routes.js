@@ -26,6 +26,7 @@ router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   try{
     const data = await Category.findByPk(req.params.id, {
+      // be sure to include its associated Products
       include: [{model: Product}]
     })
 
@@ -37,7 +38,6 @@ router.get('/:id', async (req, res) => {
   }catch(err){
     res.status(500).json({message: "Internal server error", error: err})
   }
-  // be sure to include its associated Products
 });
 
 router.post('/', async (req, res) => {
