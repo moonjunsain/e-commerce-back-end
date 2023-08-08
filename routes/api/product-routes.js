@@ -21,7 +21,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try{
     // find a single product by its `id`
-    const data = await Product.findByPk(req.params.id)
+    const data = await Product.findByPk(req.params.id, {
+      include: [{model: Category}, {model: Tag}]
+    })
     if(!data){
       res.status(404).json({message: "Cannot find the product"})
       return
